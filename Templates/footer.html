@@ -1,0 +1,77 @@
+{{define "footer"}}
+
+
+</body>
+    <script>
+        new Vue({
+            el: "#app",
+            delimiters: ['${', '}'],
+            data:{
+                Student: {{ .Student }},
+                Student1:{
+                    id:"",
+                    name:""
+                },
+
+            },
+            methods:{
+                gotoCreatePage() {
+                    window.location = "/home"
+                },
+                gotoCourseFormPage() {
+                    window.location = "/courseform"
+                },
+                viewCourses() {
+                    window.location = "/courselayout/"
+                },
+                insertStudent(){
+                    axios.post("/insert", {headers: {'content-type':'application/json'}},{
+                        data : this.Student1
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                },
+                insertCourse(id) {
+                    axios.post("/addcourse/"+id, {headers: {'content-type':'application/json'}},{
+                        data : this.Course1
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                },
+                updateStudent(){
+                    var url = "/update";
+                    axios.put(url, {headers: {'content-type': 'application/json'}},{
+                        data: this.Student
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
+                deleteStudent(id){
+                    axios.delete("/delete/"+id)
+                        .then(res => {
+                            window.location = "/"
+                        })
+                },
+                calculateCgpa() {
+                    axios.get("/calculatecgpa")
+                        .then(res => {
+                            alert(res)
+                        })
+                }
+            },
+
+
+        })
+    </script>
+</html>
+
+{{end}}

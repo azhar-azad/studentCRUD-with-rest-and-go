@@ -1,0 +1,41 @@
+{{template "header" . }}
+
+<div class="container" >
+    <div class="jumbotron text-center">
+        <h3>Course List</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" >
+            <table class="table table-responsive table-hover" id="appp">
+                <tr>
+                    <th>Course Id</th>
+                    <th>Course Name</th>
+                    <th>Credit</th>
+                    <th>Obtained GPA</th>
+                    <th>Student Id</th>
+                    <th>Action</th>
+                </tr>
+                {{ range $value := .CourseList }}
+                <tr>
+                    <td>{{ $value.Id }}</td>
+                    <td>{{ $value.Name }}</td>
+                    <td>{{ $value.Credit }}</td>
+                    <td>{{ $value.Mark }}</td>
+                    <td>{{ $value.StudentId }}</td>
+                    <td>
+                        <!--<a href="/edit/{{$value.Id}}" style="width:66px;" class="btn                                                btn-success">Edit</a>
+                        <a @click="deleteStudent({{ $value.Id }})" class="btn btn-danger">Delete</a>
+                        <a class="btn btn-primary">View Courses</a>
+                        <a class="btn btn-primary">Add Course</a>
+                        <a @click="calculateCgpa()" class="btn btn-primary">Calculate CGPA</a>-->
+                    </td>
+                </tr>
+                {{end}}
+                <a href="/" style="width:66px;" class="btn btn-success">Back</a>
+                <!--<button style="float:right;" class="btn btn-primary">Back</button>-->
+            </table>
+        </div>
+    </div>
+</div>
+
+{{template "footer"}}

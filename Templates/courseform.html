@@ -1,0 +1,109 @@
+{{ template "header" }}
+
+<div class="container" >
+    <div class="jumbotron">
+        <h2 style="text-align:center;text-transform: uppercase;">Add Student Course</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <form method="post"  @submit.prevent="insertCourse" id="appp">
+                <div class="form-group">
+                    <label>Course Id</label>
+                    <input v-model="Course1.courseid" class="form-control" type="number" name="courseid"/>
+                </div>
+                <div class="form-group">
+                    <label>Course Name </label>
+                    <input v-model="Course1.coursename" class="form-control" type="text"                                    name="coursename" />
+                </div>
+                <div class="form-group">
+                    <label>Credit</label>
+                    <input v-model="Course1.credit" class="form-control" type="number"                                      name="credit"/>
+                </div>
+                <div class="form-group">
+                    <label>Achieved GPA</label>
+                    <input v-model="Course1.mark" class="form-control" type="number" name="mark"                            step="any"/>
+                </div>
+                <div class="form-group">
+                    <label>Student Id</label>
+                    <input readonly v-model="Course1.studentid" class="form-control" type="number"                          name="studentid" />
+                </div>
+                <input style="float:right" class="btn btn-primary" type="submit" value="Add" />
+            </form>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#appp",
+            delimiters: ['${', '}'],
+            data:{
+                Course:"",
+                Course1: {
+                    courseid:"",
+                    coursename:"",
+                    credit:"",
+                    mark:"",
+                    studentid: parseInt({{ .StudentId }}),
+                }
+            },
+            methods:{
+                gotoCreatePage() {
+                    window.location = "/home"
+                },
+                gotoCourseFormPage() {
+                    window.location = "/courseform"
+                },
+                viewCourses() {
+                    window.location = "/courselayout"
+                },
+                insertStudent(){
+                    axios.post("/insert",{headers: {'content-type':'application/json'}},{
+                        data : this.Student1
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                },
+                insertCourse(id) {
+                    axios.post("/savecourse",{headers: {'content-type':'application/json'}},{
+                        data : this.Course1
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                },
+                updateStudent(){
+                    var url = "/update";
+                    axios.put(url, {headers: {'content-type': 'application/json'}},{
+                        data: this.Student
+                    }).then(res => {
+                        window.location = "/"
+                    })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
+                deleteStudent(id){
+                    axios.delete("/delete/"+id)
+                        .then(res => {
+                            window.location = "/"
+                        })
+                },
+                calculateCgpa() {
+                    axios.get("/calculatecgpa")
+                        .then(res => {
+                            window.location = "/gpa"
+                        })
+                }
+            },
+
+
+        })
+    </script>
+</div>
+
+{{ template "footer"}}

@@ -1,0 +1,32 @@
+{{template "header"}}
+
+<div class="container" id="app">
+    <div class="jumbotron">
+        <h2 style="text-align:center;text-transform: uppercase;"></h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <form method="post" @submit.prevent="updateStudent">
+
+                <div class="form-group">
+                    <label>Id</label>
+                    <input v-model="Student.Id" type="number" name="id" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Name: </label>
+                    <input v-model="Student.Name" type="text" name="name" class="form-control">
+                </div>
+
+
+                <input type="submit" value="Update" style="float:right" class="btn brn-primary">
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+{{template "footer" .}}

@@ -1,0 +1,27 @@
+{{ template "header" }}
+
+<div class="container" id="app">
+    <div class="jumbotron">
+        <h2 style="text-align:center;text-transform: uppercase;">Create New Student</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <form method="post"  @submit.prevent="insertStudent">
+                <div class="form-group">
+                    <label>Id</label>
+                    <input v-model="Student1.id" class="form-control" type="number" name="id"/>
+                </div>
+                <div class="form-group">
+                    <label> Name </label>
+                    <input v-model="Student1.name" class="form-control" type="text" name="name" />
+                </div>
+                <input style="float:right" class="btn btn-primary" type="submit" value="Create" />
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{{ template "footer" }}
