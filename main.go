@@ -41,8 +41,7 @@ func main() {
 	myRouter.HandleFunc("/savecourse", courseController.SaveCourse).Methods(http.MethodPost)
 	myRouter.HandleFunc("/courselayout/{id}", courseController.ShowCoursePage).Methods(http.MethodGet)
 	myRouter.HandleFunc("/courseform", courseController.ShowCourseFormPage).Methods(http.MethodGet)
-	myRouter.HandleFunc("/calculatecgpa", courseController.ShowCgpa).Methods(http.MethodGet)
-
+	myRouter.HandleFunc("/calculatecgpa/{id}", courseController.ShowCgpa).Methods(http.MethodGet)
 
 	log.Fatal(http.ListenAndServe(":8080", myRouter))
 }

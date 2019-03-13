@@ -4,7 +4,6 @@ import "studentCgpa/Models"
 
 type StudentRepo struct {
 	StudentData map[string]Models.Student
-
 }
 
 func NewStudentRepo() *StudentRepo {
@@ -25,6 +24,10 @@ func (rep *StudentRepo) FindOne(id string) Models.Student {
 
 func (rep *StudentRepo) Delete(id string) {
 	delete(rep.StudentData, id)
+}
+
+func (rep *StudentRepo) GetNameById(id string) string {
+	return rep.StudentData[id].Name
 }
 
 //func (rep *StudentRepo) GetCgpa() float64 {

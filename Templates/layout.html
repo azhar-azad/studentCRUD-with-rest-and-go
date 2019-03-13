@@ -5,28 +5,34 @@
         <h3>Student List</h3>
     </div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="">
             <table class="table table-responsive table-hover">
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
                     <th>Action</th>
+                    <th>Picture</th>
                 </tr>
                 {{ range $key, $value := .Student }}
                     <tr>
                         <td>{{ $value.Id }}</td>
                         <td>{{ $value.Name }}</td>
+                        <td>{{ $value.Address }}</td>
+                        <td>{{ $value.Email }}</td>
                         <td>
                             <a href="/edit/{{$value.Id}}" style="width:66px;" class="btn                                                    btn-success">Edit</a>
                             <a @click="deleteStudent({{ $value.Id }})" class="btn btn-danger">Delete</a>
                             <a href="/courselayout/{{$value.Id}}" class="btn btn-primary">View                                      Courses</a>
                             <a href="/addcourse/{{$value.Id}}" class="btn btn-primary">Add Course</a>
                             {{/*<a @click="calculateCgpa()" class="btn btn-primary">Calculate CGPA</a>*/}}
-                            <a href="/calculatecgpa" class="btn btn-primary">Calculate CGPA</a>
+                            <a href="/calculatecgpa/{{$value.Id}}" class="btn btn-primary">Calculate CGPA</a>
                         </td>
+                        <td>{{ $value.Path }}</td>
                     </tr>
                 {{end}}
-                <button style="float:right;" @click="gotoCreatePage" class="btn btn-primary">Create                         New</button>
+                <button style="float:right;" @click="gotoCreatePage" class="btn btn-primary">Create New</button>
             </table>
         </div>
     </div>

@@ -2,6 +2,7 @@ package Repos
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"studentCgpa/Models"
 )
@@ -10,14 +11,8 @@ type CourseRepo struct {
 	CourseData []Models.Course
 }
 
-
-
 func NewCourseReop() *CourseRepo {
 	return &CourseRepo{CourseData: make([]Models.Course, 0, 0)}
-}
-
-func (rep *CourseRepo)GetCourseData() []Models.Course {
-	return rep.CourseData
 }
 
 func (rep *CourseRepo) ShowCourseData() []Models.Course {
@@ -28,20 +23,35 @@ func (rep *CourseRepo) SaveCourse(course Models.Course) {
 	rep.CourseData = append(rep.CourseData, course)
 }
 
-func (rep *CourseRepo) CalculateCgpa() float64 {
+func (rep *CourseRepo) CalculateCgpa(stdId string) float64 {
+
 	productValue := 0.0
 	totalCredit := 0.0
 
+	studentId, err := strconv.Atoi(stdId)
+	if err != nil {
+		fmt.Sprintf("Can't convert (string)StudentId to (int)StudentId")
+		return 0.0
+	}
+
+	var tempData []Models.Course
 	for _, val := range rep.CourseData {
+		if val.StudentId == studentId {
+			tempData = append(tempData, val)
+		}
+	}
+
+	for _, val := range tempData {
+
 		intCredit, err := strconv.ParseFloat(val.Credit, 64)
 		if err != nil {
-			fmt.Println("Can't convert (string)Credit to (float64)Credit")
+			fmt.Sprintf("Can't convert (string)Credit to (float64)Credit")
 			return 0.0
 		}
 
 		intMark, err := strconv.ParseFloat(val.Mark, 64)
 		if err != nil {
-			fmt.Println("Can't convert (string)Mark to (float64)Mark")
+			fmt.Sprintf("Can't convert (string)Mark to (float64)Mark")
 			return 0.0
 		}
 
@@ -49,10 +59,10 @@ func (rep *CourseRepo) CalculateCgpa() float64 {
 		totalCredit += intCredit
 	}
 
-	return productValue / totalCredit
+	cg := productValue / totalCredit
+
+	return math.Round(cg*100) / 100
 }
-
-
 
 //func (rep *StudentRepo) GetCgpa() float64 {
 //
